@@ -2,7 +2,25 @@
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        Black: {
+          100: '#313133',
+          200: '#202124',
+          300: '#1D1D1F',
+        },
+        Gray: {
+          700: '#8C8A93',
+          500: '#A5A8B0',
+        },
+        Green: {
+          300: '#45EA69',
+        },
+        Red: {
+          400: '#FF6363',
+        },
+      },
+    },
   },
   plugins: [],
 }

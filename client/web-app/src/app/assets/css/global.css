@@ -4,7 +4,16 @@
 
 :root {
     --Black: #000;
+    --Black-100: #313133;
+    --Black-200: #202124;
     --Black-300: #040B14;
+
+    --Gray-700: #8C8A93;
+    --Gray-500: #A5A8B0;
+
+    --Green-300: #45EA69;
+
+    --Red-400: #FF6363;
 
     --White: #FFF;
 }
@@ -18,6 +27,17 @@
 
 html, body, #root {
     height: 100%;
+}
+
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    height: auto;
 }
 
 .body-df {
