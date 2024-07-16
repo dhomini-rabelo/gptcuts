@@ -39,5 +39,37 @@ export const Span = {
         font-size: 1.75rem;
         `}
       `}
+
+    ${(props) =>
+      cssCondition(props.variant === 'text') &&
+      css`
+        font-style: normal;
+        line-height: normal;
+
+        ${cssCondition(props.weight === 'bold') &&
+        `
+        font-weight: 600;
+        `}
+
+        ${cssCondition(props.weight === 'medium') &&
+        `
+        font-weight: 500;
+        `}
+      
+      ${cssCondition(props.weight === 'regular') &&
+        `
+        font-weight: 400;
+        `}
+      
+      ${cssCondition(props.size === 'md') &&
+        `
+        font-size: 1rem;
+        `}
+      
+      ${cssCondition(props.size === 'sm') &&
+        `
+          font-size: 0.75rem;
+      `}
+      `}
   `,
 }
