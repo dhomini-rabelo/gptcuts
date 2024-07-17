@@ -2,26 +2,26 @@ import { useForm } from 'react-hook-form'
 import { Text } from '../../components/common/Text'
 import { Button } from '../../components/forms/Button'
 import { Input } from '../../components/forms/Input'
-import { RegisterUserSchema, RegisterUserSchemaType } from './schema'
+import { LoginSchema, LoginSchemaType } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-export function RegisterPage() {
+export function LoginPage() {
   const {
     handleSubmit,
     formState: { errors },
     getValues,
     register,
-  } = useForm<RegisterUserSchemaType>({
-    resolver: zodResolver(RegisterUserSchema),
+  } = useForm<LoginSchemaType>({
+    resolver: zodResolver(LoginSchema),
   })
 
   useEffect(() => {
     console.log({ errors, data: getValues() })
   }, [errors])
 
-  async function onValidSubmit(data: RegisterUserSchemaType) {
+  async function onValidSubmit(data: LoginSchemaType) {
     console.log({ data })
   }
 
@@ -36,15 +36,6 @@ export function RegisterPage() {
           className="mt-8 flex flex-col gap-y-3"
           onSubmit={handleSubmit(onValidSubmit)}
         >
-          <Input.Root>
-            <Input.Label>Username:</Input.Label>
-            <Input.Box
-              type="text"
-              placeholder="Type your username"
-              {...register('username')}
-            />
-            <Input.Message>{errors.username?.message}</Input.Message>
-          </Input.Root>
           <Input.Root>
             <Input.Label>Email:</Input.Label>
             <Input.Box
@@ -63,24 +54,15 @@ export function RegisterPage() {
             />
             <Input.Message>{errors.password?.message}</Input.Message>
           </Input.Root>
-          <Input.Root>
-            <Input.Label>Confirm Password:</Input.Label>
-            <Input.Box
-              type="password"
-              placeholder="Type your password again"
-              {...register('confirm_password')}
-            />
-            <Input.Message>{errors.confirm_password?.message}</Input.Message>
-          </Input.Root>
           <div className="mt-6 w-full">
-            <Button type="submit">Create Account</Button>
+            <Button type="submit">Login</Button>
           </div>
         </form>
         <div className="pt-8 text-center">
           <Text color="Gray-500" weight="regular">
-            Already have an account?{' '}
-            <Link to="/" className="text-Green-300">
-              Login here
+            Don't have an account?{' '}
+            <Link to="/register" className="text-Green-300">
+              Register here
             </Link>
           </Text>
         </div>
