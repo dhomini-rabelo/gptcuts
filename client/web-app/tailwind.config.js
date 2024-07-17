@@ -15,6 +15,7 @@ export default {
         },
         Green: {
           300: '#45EA69',
+          400: '#3bd25c',
         },
         Red: {
           400: '#FF6363',
