@@ -6,6 +6,7 @@ import { LoginSchema, LoginSchemaType } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Logo } from '../../components/utils/Logo'
 
 export function LoginPage() {
   const {
@@ -28,10 +29,7 @@ export function LoginPage() {
   return (
     <div className="body-df">
       <main className="mx-auto max-w-96 pt-16 pb-12">
-        <h1 className="text-center flex gap-x-2 justify-center">
-          <img src="./logo-white.svg" alt="GPT logo" />
-          <Text variant="title">GPTCUTS</Text>
-        </h1>
+        <Logo />
         <form
           className="mt-8 flex flex-col gap-y-3"
           onSubmit={handleSubmit(onValidSubmit)}
