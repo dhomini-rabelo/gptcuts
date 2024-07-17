@@ -10,7 +10,8 @@ export const Div = {
     border-radius: 0.25rem;
     background: var(--Black-100);
 
-    input {
+    input,
+    textarea {
       border: none;
       width: 100%;
       background-color: transparent;
