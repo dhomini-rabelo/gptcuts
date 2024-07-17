@@ -67,6 +67,10 @@ export const Span = {
         font-weight: 400;
         `}
       
+      ${cssCondition(props.size === 'lg') &&
+        `
+        font-size: 1.125rem;
+        `}
       ${cssCondition(props.size === 'md') &&
         `
         font-size: 1rem;
