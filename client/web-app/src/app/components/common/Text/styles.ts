@@ -3,7 +3,7 @@ import { colors } from '../../../tokens/colors'
 import { cssCondition } from '../../../utils/styles'
 
 export type TextStyledProps = {
-  color: keyof typeof colors
+  color: keyof typeof colors | null
   variant: 'display' | 'title' | 'text'
   size: 'xl' | 'lg' | 'md' | 'sm' | 'xs'
   weight: 'bold' | 'medium' | 'regular'
@@ -11,7 +11,11 @@ export type TextStyledProps = {
 
 export const Span = {
   Text: styled.span<TextStyledProps>`
-    color: ${(props) => colors[props.color]};
+    ${(props) =>
+      props.color &&
+      css`
+        color: ${colors[props.color]};
+      `}
 
     ${(props) =>
       cssCondition(props.variant === 'title') &&
