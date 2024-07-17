@@ -5,12 +5,13 @@ type InputBoxProps = React.InputHTMLAttributes<
   HTMLInputElement | HTMLTextAreaElement
 > & {
   type?: 'text' | 'password' | 'text-area'
+  RightIcon?: React.ReactNode
 }
 
 export const InputBox = forwardRef<
   HTMLTextAreaElement | HTMLInputElement,
   InputBoxProps
->(({ type = 'text', spellCheck = false, ...inputProps }, ref) => {
+>(({ type = 'text', spellCheck = false, RightIcon, ...inputProps }, ref) => {
   return (
     <Div.InputBox>
       {type === 'text-area' ? (
@@ -27,6 +28,7 @@ export const InputBox = forwardRef<
           {...inputProps}
         />
       )}
+      {RightIcon}
     </Div.InputBox>
   )
 })
