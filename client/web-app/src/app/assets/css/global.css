@@ -6,7 +6,9 @@
     --Black: #000;
     --Black-100: #313133;
     --Black-200: #202124;
-    --Black-300: #040B14;
+    --Black-300: #1D1D1F;
+    --Black-400: #171719;
+    --Black-500: #040B14;
 
     --Gray-700: #8C8A93;
     --Gray-500: #A5A8B0;
@@ -19,6 +21,7 @@
     --Purple: #2C1C4B;
 
     --White: #FFF;
+    --White-300: #DCDEE3;
 }
 
 * {
@@ -47,5 +50,5 @@ button {
     display: table;
     height: 100%;
     width: 100%;
-    background-color: var(--Black-300);
+    background-color: var(--Black-500);
 } 

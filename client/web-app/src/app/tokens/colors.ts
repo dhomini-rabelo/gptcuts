@@ -4,6 +4,8 @@ export const colors = {
   'Black-100': '#313133',
   'Black-200': '#202124',
   'Black-300': '#1D1D1F',
+  'Black-400': '#171719',
+  'Black-500': '#040B14',
 
   // Gray
   'Gray-500': '#A5A8B0',
