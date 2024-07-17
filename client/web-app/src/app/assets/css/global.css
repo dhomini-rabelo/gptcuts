@@ -41,7 +41,8 @@ button {
 }
 
 .body-df {
+    display: table;
     height: 100%;
     width: 100%;
     background-color: var(--Black-300);
-}
+} 
