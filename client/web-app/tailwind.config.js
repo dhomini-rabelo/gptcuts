@@ -19,6 +19,9 @@ export default {
         Red: {
           400: '#FF6363',
         },
+        Purple: {
+          400: '#2C1C4B',
+        },
       },
     },
   },

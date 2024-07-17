@@ -15,6 +15,9 @@ export const colors = {
   // Red
   'Red-400': '#FF6363',
 
+  // Purple
+  'Purple-400': '#2C1C4B',
+
   // White
   White: '#FFF',
   'White-300': '#DCDEE3',
