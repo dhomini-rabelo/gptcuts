@@ -11,12 +11,18 @@ export function Header() {
         <nav className="flex gap-x-3 ml-auto">
           <NavLink to="/">
             <HeaderLink>
-              <Text weight="regular">Public</Text>
+              <div className="flex items-center gap-x-2">
+                <img src="./icons/world.svg" />
+                <Text weight="regular">Public</Text>
+              </div>
             </HeaderLink>
           </NavLink>
           <NavLink to="/my-shortcuts">
             <HeaderLink>
-              <Text weight="regular">Personal</Text>
+              <div className="flex items-center gap-x-2">
+                <img src="./icons/profile.svg" />
+                <Text weight="regular">Personal</Text>
+              </div>
             </HeaderLink>
           </NavLink>
           <NavLink to="/exit">
