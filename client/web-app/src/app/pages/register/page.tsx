@@ -40,36 +40,36 @@ export function RegisterPage() {
             <Input.Box
               type="text"
               placeholder="Type your username"
-              errorMessage={errors.username?.message}
               {...register('username')}
             />
+            <Input.Message>{errors.username?.message}</Input.Message>
           </Input.Root>
           <Input.Root>
             <Input.Label>Email:</Input.Label>
             <Input.Box
               type="text"
               placeholder="Type your email"
-              errorMessage={errors.email?.message}
               {...register('email')}
             />
+            <Input.Message>{errors.email?.message}</Input.Message>
           </Input.Root>
           <Input.Root>
             <Input.Label>Password:</Input.Label>
             <Input.Box
               type="password"
               placeholder="Type your password"
-              errorMessage={errors.password?.message}
               {...register('password')}
             />
+            <Input.Message>{errors.password?.message}</Input.Message>
           </Input.Root>
           <Input.Root>
             <Input.Label>Confirm Password:</Input.Label>
             <Input.Box
               type="password"
               placeholder="Type your password again"
-              errorMessage={errors.confirm_password?.message}
               {...register('confirm_password')}
             />
+            <Input.Message>{errors.confirm_password?.message}</Input.Message>
           </Input.Root>
           <div className="mt-6 w-full">
             <Button type="submit">Create Account</Button>
