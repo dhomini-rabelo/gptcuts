@@ -9,7 +9,9 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 export function Button({ children, type = 'button', ...props }: ButtonProps) {
   return (
     <ButtonStyle type={type} {...props}>
-      <Text color="Black-200">{children}</Text>
+      <Text color="Black-300" weight="bold">
+        {children}
+      </Text>
     </ButtonStyle>
   )
 }

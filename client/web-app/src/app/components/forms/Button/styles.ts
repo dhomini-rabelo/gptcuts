@@ -7,4 +7,8 @@ export const ButtonStyle = styled.button`
   background: var(--Green-300);
   color: var(--Black-200);
   width: 100%;
+
+  &:hover {
+    background: var(--Green-400) !important;
+  }
 `
