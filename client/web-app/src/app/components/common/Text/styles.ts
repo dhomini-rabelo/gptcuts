@@ -38,6 +38,12 @@ export const Span = {
         `
         font-size: 1.75rem;
         `}
+
+      ${cssCondition(props.size === 'md') &&
+        `
+        font-size: 1.375rem;
+        line-height: 124%;
+        `}
       `}
 
     ${(props) =>
@@ -67,6 +73,11 @@ export const Span = {
         `}
       
       ${cssCondition(props.size === 'sm') &&
+        `
+          font-size: 0.875rem;
+      `}
+
+      ${cssCondition(props.size === 'xs') &&
         `
           font-size: 0.75rem;
       `}
