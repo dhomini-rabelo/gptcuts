@@ -1,10 +1,11 @@
-import { ButtonStyle, ButtonVariant } from './styles'
+import { ButtonSize, ButtonStyle, ButtonVariant } from './styles'
 import { Text } from '../../common/Text'
 import { Loading } from '../Loading'
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode
   type?: 'submit' | 'reset' | 'button'
+  size?: ButtonSize
   variant?: ButtonVariant
   isSubmitting?: boolean
 }
@@ -12,6 +13,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 export function Button({
   children,
   type = 'button',
+  size = 'md',
   variant = 'default',
   isSubmitting = false,
   ...props
@@ -19,9 +21,11 @@ export function Button({
   return (
     <ButtonStyle
       type={type}
+      size={size}
       variant={variant}
       disabled={isSubmitting}
       {...props}
+      className="flex items-center justify-center"
     >
       <Text color="Black-300" weight="bold">
         {isSubmitting ? <Loading /> : children}

@@ -26,6 +26,9 @@ export function Folder({
 }) {
   const { FeedbackElement, renderFeedback } = useFeedback()
   const [updatingData, setUpdatingData] = useState<boolean>(false)
+  const [shortcutToEdit, setShortcutToEdit] = useState<ShortcutEntity | null>(
+    null,
+  )
   const { currentActiveModal, activateModal, disableModal } = useModals<
     'folder-modal' | 'shortcut-modal'
   >()
@@ -51,14 +54,23 @@ export function Folder({
     }
   }
 
+  function openShortcutModal(shortcut: ShortcutEntity) {
+    setShortcutToEdit(shortcut)
+    activateModal('shortcut-modal')
+  }
+
   return (
     <>
       {FeedbackElement}
       {currentActiveModal === 'folder-modal' && (
         <FolderModal onClose={disableModal} editData={folder} />
       )}
-      {currentActiveModal === 'shortcut-modal' && (
-        <ShortcutModal onClose={disableModal} />
+      {shortcutToEdit && currentActiveModal === 'shortcut-modal' && (
+        <ShortcutModal
+          onClose={disableModal}
+          shortcutData={shortcutToEdit}
+          mode={editable ? 'edit' : 'read'}
+        />
       )}
       <div className="folder bg-Black-100 rounded-2xl px-4 py-5 border-2 border-transparent hover:border-Gray-500 cursor-pointer relative">
         <header>
@@ -76,10 +88,10 @@ export function Folder({
         </header>
         <main className="mt-2.5 flex flex-col gap-y-2">
           {folder.shortcuts.map((shortcut) => (
-            <div className="group">
+            <div className="group" key={shortcut.id}>
               <div
                 className="bg-Black-300 hover:bg-Black-400 rounded-lg px-4 py-2 text-White-300 group-hover:text-white"
-                onClick={() => activateModal('shortcut-modal')}
+                onClick={() => openShortcutModal(shortcut)}
               >
                 <div className="flex justify-between items-center">
                   <Text weight="regular" color={null}>
