@@ -17,7 +17,12 @@ export function Button({
   ...props
 }: ButtonProps) {
   return (
-    <ButtonStyle type={type} variant={variant} {...props}>
+    <ButtonStyle
+      type={type}
+      variant={variant}
+      disabled={isSubmitting}
+      {...props}
+    >
       <Text color="Black-300" weight="bold">
         {isSubmitting ? <Loading /> : children}
       </Text>
