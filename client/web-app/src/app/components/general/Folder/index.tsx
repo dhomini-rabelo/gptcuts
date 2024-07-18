@@ -1,9 +1,17 @@
-import { CopySimple, LockSimple, PencilSimple } from 'phosphor-react'
+import {
+  CopySimple,
+  LockLaminated,
+  LockSimpleOpen,
+  PencilSimple,
+} from 'phosphor-react'
 import { Text } from '../../../components/common/Text'
 import { FolderModal } from './sub-components/FolderModal'
 import { useModals } from '../../../hooks/useModal'
 import { ShortcutModal } from './sub-components/ShortcutModal '
 import { FolderEntity, ShortcutEntity } from '../../../../code/entities'
+import { client, queryClient } from '../../../../code/settings'
+import { useFeedback } from '../../../hooks/useFeedback'
+import { useState } from 'react'
 
 export interface FolderData extends FolderEntity {
   shortcuts: ShortcutEntity[]
@@ -16,12 +24,36 @@ export function Folder({
   folder: FolderData
   editable?: boolean
 }) {
+  const { FeedbackElement, renderFeedback } = useFeedback()
+  const [updatingData, setUpdatingData] = useState<boolean>(false)
   const { currentActiveModal, activateModal, disableModal } = useModals<
     'folder-modal' | 'shortcut-modal'
   >()
 
+  async function toggleVisibility() {
+    setUpdatingData(true)
+    try {
+      await client.put(`/folders/visibility/${folder.id}`)
+      renderFeedback('success', {
+        message: 'Successfully!',
+        onClose: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['my-folders'],
+          })
+        },
+      })
+    } catch (error) {
+      renderFeedback('error', {
+        message: 'An error occurred!',
+      })
+    } finally {
+      setUpdatingData(false)
+    }
+  }
+
   return (
     <>
+      {FeedbackElement}
       {currentActiveModal === 'folder-modal' && (
         <FolderModal onClose={disableModal} editData={folder} />
       )}
@@ -73,10 +105,19 @@ export function Folder({
                 className="text-Gray-700 hover:text-Gray-500 relative -top-0.5"
                 onClick={() => activateModal('folder-modal')}
               />
-              <LockSimple
-                size={24}
-                className="text-Gray-700 hover:text-Gray-500"
-              />
+              <button disabled={updatingData} onClick={toggleVisibility}>
+                {folder.is_private ? (
+                  <LockLaminated
+                    size={24}
+                    className="text-Gray-700 hover:text-Gray-500"
+                  />
+                ) : (
+                  <LockSimpleOpen
+                    size={24}
+                    className="text-Gray-700 hover:text-Gray-500"
+                  />
+                )}
+              </button>
             </>
           )}
         </div>
