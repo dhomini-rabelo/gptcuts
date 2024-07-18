@@ -4,8 +4,10 @@ import { useLoginStore } from '../../../../code/stores/auth'
 
 export default function Auth(): JSX.Element | null {
   const navigate: NavigateFunction = useNavigate()
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const authToken = useLoginStore((state) => state.accessToken)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    authToken !== null,
+  )
 
   useEffect(() => {
     if (authToken === null) {
