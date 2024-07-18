@@ -11,11 +11,6 @@ export const RegisterUserSchema = zod
       .min(4, DynamicErrorMessages.minLength(4))
       .max(65, DynamicErrorMessages.maxLength(65))
       .regex(/^[a-zA-Z0-9-_]+$/, ErrorMessages.INVALID_CODE),
-    email: zod
-      .string()
-      .email(ErrorMessages.INVALID_EMAIL)
-      .min(1, ErrorMessages.REQUIRED)
-      .max(150, DynamicErrorMessages.maxLength(150)),
     password: zod.string().min(8, DynamicErrorMessages.minLength(8)),
     confirm_password: zod.string().min(1, ErrorMessages.REQUIRED),
   })
