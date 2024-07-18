@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Folder(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     description = models.CharField(max_length=128)
     is_private = models.BooleanField(default=True)
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
