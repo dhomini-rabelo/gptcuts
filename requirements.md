@@ -23,5 +23,5 @@ Site that has shortcuts for GPT prompts.
 ## Entities
 
 - User => username, password
-- Folder => name, private or public
-- Shortcut => text, path, folder_id
+- Folder => name, description, is_private, user_id
+- Shortcut => text, is_pinned, folder_id
