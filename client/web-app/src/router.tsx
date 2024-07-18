@@ -3,6 +3,7 @@ import { RegisterPage } from './app/pages/register/page'
 import { LoginPage } from './app/pages/login/page'
 import { MyShortcutsPage } from './app/pages/my-shortcuts/page'
 import { PublicShortcutsPage } from './app/pages/index/page'
+import { FolderPage } from './app/pages/folder-page/page'
 
 export function Router() {
   return (
@@ -12,6 +13,7 @@ export function Router() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/my-shortcuts" element={<MyShortcutsPage />} />
+        <Route path="/folders" element={<FolderPage />} />
       </Routes>
     </BrowserRouter>
   )

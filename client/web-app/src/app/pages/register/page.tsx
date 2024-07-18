@@ -77,7 +77,7 @@ export function RegisterPage() {
         <div className="pt-8 text-center">
           <Text color="Gray-500" weight="regular">
             Already have an account?{' '}
-            <Link to="/" className="text-Green-300">
+            <Link to="/login" className="text-Green-300">
               Login here
             </Link>
           </Text>
