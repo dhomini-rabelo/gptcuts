@@ -3,8 +3,14 @@ import { Text } from '../../components/common/Text'
 import { Button } from '../../components/forms/Button'
 import { Folder } from '../../components/general/Folder'
 import { Header } from '../../components/utils/Header'
+import { useLoginStore } from '../../../code/stores/auth'
 
 export function MyShortcutsPage() {
+  const { username } = useLoginStore((state) => ({
+    accessToken: state.accessToken,
+    username: state.username,
+  }))
+
   return (
     <div className="body-df">
       <Header />
@@ -16,7 +22,7 @@ export function MyShortcutsPage() {
             </h1>
             <div>
               <Text size="sm" weight="regular" color="Gray-700">
-                @someuser
+                @{username}
               </Text>
             </div>
           </div>
