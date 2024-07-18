@@ -1,9 +1,9 @@
 from django.urls import path
-from .api import auth
+from .api.auth import index
 
 app_name = 'accounts'
 
 urlpatterns = [
-    path('register', auth.CreateUserAPI.as_view(), name='register'),
-    path('login', auth.LoginAPI.as_view(), name='login'),
+    path('register', index.CreateUserAPI.as_view(), name='register'),
+    path('login', index.LoginAPI.as_view(), name='login'),
 ]

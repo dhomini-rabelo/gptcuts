@@ -2,7 +2,7 @@ from rest_framework import generics
 from utils.no_auth import NoAuthAPI
 from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-from apps.accounts.serializers.auth.index import CreateUserSerializer
+from apps.accounts.api.auth.serializers import CreateUserSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from apps.accounts.models import User
 from rest_framework import status
