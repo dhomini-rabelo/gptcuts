@@ -13,7 +13,7 @@ export function Router() {
         <Route path="/" element={<PublicShortcutsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/folders/:id" element={<FolderPage />} />
+        <Route path="/folders/:folderId" element={<FolderPage />} />
         <Route element={<Auth />}>
           <Route path="/my-shortcuts" element={<MyShortcutsPage />} />
         </Route>

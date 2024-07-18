@@ -12,7 +12,7 @@ export function Header() {
           <NavLink to="/">
             <HeaderLink>
               <div className="flex items-center gap-x-2">
-                <img src="./icons/world.svg" />
+                <img src="/icons/world.svg" />
                 <Text weight="regular">Public</Text>
               </div>
             </HeaderLink>
@@ -20,14 +20,16 @@ export function Header() {
           <NavLink to="/my-shortcuts">
             <HeaderLink>
               <div className="flex items-center gap-x-2">
-                <img src="./icons/profile.svg" />
+                <img src="/icons/profile.svg" />
                 <Text weight="regular">Personal</Text>
               </div>
             </HeaderLink>
           </NavLink>
           <NavLink to="/exit">
             <HeaderLink>
-              <img src="./icons/exit.svg" />
+              <div className="-rotate-180">
+                <img src="/icons/exit.svg" />
+              </div>
             </HeaderLink>
           </NavLink>
         </nav>

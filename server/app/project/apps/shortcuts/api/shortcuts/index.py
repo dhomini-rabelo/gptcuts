@@ -1,12 +1,32 @@
-from rest_framework import generics, serializers
+from rest_framework import generics, serializers, views
+from rest_framework.response import Response
 from apps.shortcuts.api.shortcuts.serializers import (
     CreateShortcutSerializer,
     EditShortcutSerializer,
+    ShortcutPresenter,
     ToggleShortcutPinSerializer,
+)
+from apps.shortcuts.api.folders.serializers import (
+    FolderPresenter,
 )
 from apps.shortcuts.models import Folder, Shortcut
 from utils.errors import ErrorMessages
+from django.shortcuts import get_object_or_404
+from utils.no_auth import NoAuthAPI
 
+
+
+class ShortcutsListAPI(NoAuthAPI, views.APIView):
+
+    def get(self, request, pk):
+        folder = get_object_or_404(Folder.objects.select_related('user'), id=pk)
+        return Response(data={
+            'shortcuts': ShortcutPresenter(Shortcut.objects.filter(folder=folder), many=True).data,
+            'folder': FolderPresenter(folder).data,
+            'author': {
+                'username': folder.user.username,
+            },
+        })
 
 class CreateShortcutAPI(generics.CreateAPIView):
     serializer_class = CreateShortcutSerializer

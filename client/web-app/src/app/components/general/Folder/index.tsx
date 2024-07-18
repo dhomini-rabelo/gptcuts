@@ -12,6 +12,7 @@ import { FolderEntity, ShortcutEntity } from '../../../../code/entities'
 import { client, queryClient } from '../../../../code/settings'
 import { useFeedback } from '../../../hooks/useFeedback'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export interface FolderData extends FolderEntity {
   shortcuts: ShortcutEntity[]
@@ -73,9 +74,9 @@ export function Folder({
         />
       )}
       <div className="folder bg-Black-100 rounded-2xl px-4 py-5 border-2 border-transparent hover:border-Gray-500 cursor-pointer relative">
-        <header>
+        <Link to={`/folders/${folder.id}`}>
           <strong className="flex items-center justify-center gap-x-1.5">
-            <img src="./icons/folder.svg" className="h-7 w-7" />
+            <img src="/icons/folder.svg" className="h-7 w-7" />
             <Text variant="title" size="md">
               {folder.name}
             </Text>
@@ -85,7 +86,7 @@ export function Folder({
               {folder.description}
             </Text>
           </div>
-        </header>
+        </Link>
         <main className="mt-2.5 flex flex-col gap-y-2">
           {folder.shortcuts.map((shortcut) => (
             <div className="group" key={shortcut.id}>

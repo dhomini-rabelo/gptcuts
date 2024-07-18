@@ -3,16 +3,69 @@ import { Text } from '../../components/common/Text'
 import { Button } from '../../components/forms/Button'
 import { Header } from '../../components/utils/Header'
 import { useModals } from '../../hooks/useModal'
-import { ShortcutModal } from '../../components/general/Folder/sub-components/ShortcutModal '
+import { useQuery } from '@tanstack/react-query'
+import { FolderEntity, ShortcutEntity } from '../../../code/entities'
+import { client } from '../../../code/settings'
+import { useParams } from 'react-router-dom'
+import {
+  ShortcutModal,
+  ShortcutModalProps,
+} from '../../components/general/Folder/sub-components/ShortcutModal '
+import { useLoginStore } from '../../../code/stores/auth'
+import { useState } from 'react'
+import { ShortcutText } from '../../components/general/ShortcutText'
 
 export function FolderPage() {
+  const { folderId } = useParams()
+  const username = useLoginStore((state) => state.username)
   const { currentActiveModal, activateModal, disableModal } =
     useModals<'shortcut-modal'>()
+  const folderQuery = useQuery<{
+    folder: FolderEntity
+    author: { username: string }
+    shortcuts: ShortcutEntity[]
+  }>({
+    queryKey: ['shortcuts-from-folder'],
+    queryFn: async () => {
+      return client
+        .get(`/folders/${folderId}/shortcuts`)
+        .then((res) => res.data)
+    },
+  })
+  const [shortcutData, setShortcutData] = useState<
+    ShortcutModalProps['shortcutData']
+  >({
+    folder: Number(folderId || 0),
+  })
+  const [mode, setMode] = useState<ShortcutModalProps['mode']>('read')
+  const isAuthor = folderQuery.data?.author.username === username
+
+  function openShortcutModalToCreate() {
+    setShortcutData({
+      folder: Number(folderId),
+    })
+    setMode('create')
+    activateModal('shortcut-modal')
+  }
+
+  function openShortcutModalToEditOrEdit(shortcut: ShortcutEntity) {
+    setShortcutData(shortcut)
+    if (isAuthor) {
+      setMode('edit')
+    } else {
+      setMode('read')
+    }
+    activateModal('shortcut-modal')
+  }
 
   return (
     <>
       {currentActiveModal === 'shortcut-modal' && (
-        <ShortcutModal onClose={disableModal} />
+        <ShortcutModal
+          onClose={disableModal}
+          shortcutData={shortcutData}
+          mode={mode}
+        />
       )}
       <div className="body-df">
         <Header />
@@ -20,43 +73,40 @@ export function FolderPage() {
           <div className="mt-12 flex items-center justify-between">
             <div className="flex flex-col">
               <h1 className="flex items-center justify-center gap-x-2">
-                <img src="./icons/folder.svg" className="h-7 w-7" />
-                <Text variant="title">FOLDER NAME</Text>
+                <img src="/icons/folder.svg" className="h-7 w-7" />
+                <Text variant="title">
+                  {folderQuery.data?.folder.name || ''}
+                </Text>
               </h1>
               <div>
                 <Text size="sm" weight="regular" color="Gray-700">
-                  @someuser
+                  @{folderQuery.data?.author.username || ''}
                 </Text>
               </div>
             </div>
-            <div>
-              <Button
-                type="submit"
-                onClick={() => activateModal('shortcut-modal')}
-              >
-                <span className="flex items-center">
-                  <Plus
-                    size={16}
-                    weight="bold"
-                    className="inline-block mr-1 relative -top-[0.5px]"
-                  />
-                  Add Shortcut
-                </span>
-              </Button>
-            </div>
+            {isAuthor && (
+              <div>
+                <Button type="submit" onClick={openShortcutModalToCreate}>
+                  <span className="flex items-center">
+                    <Plus
+                      size={16}
+                      weight="bold"
+                      className="inline-block mr-1 relative -top-[0.5px]"
+                    />
+                    Add Shortcut
+                  </span>
+                </Button>
+              </div>
+            )}
           </div>
           <section className="folders grid grid-cols-2 mt-8 gap-x-4 gap-y-8 pb-12">
-            <div
-              className="folder bg-Black-100 rounded-2xl px-4 py-5 border-2 border-transparent hover:border-Gray-500 cursor-pointer relative"
-              onClick={() => activateModal('shortcut-modal')}
-            >
-              <main>
-                <Text>
-                  Qual a diferença entre "do" e "make"? Qual a diferença entre
-                  "do" e "make"? Qual a diferença entre "do" e "make"?
-                </Text>
-              </main>
-            </div>
+            {folderQuery.data?.shortcuts.map((shortcut) => (
+              <ShortcutText
+                shortcut={shortcut}
+                onClick={() => openShortcutModalToEditOrEdit(shortcut)}
+                key={shortcut.id}
+              />
+            ))}
           </section>
         </main>
       </div>

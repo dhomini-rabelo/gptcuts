@@ -1,7 +1,7 @@
 import { Input } from '../../../../forms/Input'
 import { Button } from '../../../../forms/Button'
 import { SimpleModal } from '../../../../forms/modals/SimpleModal'
-import { CopySimple } from 'phosphor-react'
+import { CheckCircle, CopySimple } from 'phosphor-react'
 import { ShortcutEntity } from '../../../../../../code/entities'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -11,9 +11,9 @@ import { client, queryClient } from '../../../../../../code/settings'
 import { processFormErrorResponse } from '../../../../../../code/process-error'
 import { AxiosError } from 'axios'
 
-type ShortcutModalProps = {
+export type ShortcutModalProps = {
   onClose: () => void
-  shortcutData?: ShortcutEntity
+  shortcutData: ShortcutEntity | { folder: number; text?: string; id?: number }
   mode: 'edit' | 'create' | 'read'
 }
 
@@ -44,14 +44,16 @@ export function ShortcutModal({
         url: `/shortcuts${mode === 'edit' && shortcutData ? `/${shortcutData.id}` : ''}`,
         data: {
           text: data.text,
+          folder: shortcutData.folder,
         },
       })
       renderFeedback('success', {
         message: 'Successfully!',
         onClose: () => {
           queryClient.invalidateQueries({
-            queryKey: ['my-folders'],
+            queryKey: ['shortcuts-from-folder'],
           })
+          onClose()
         },
       })
     } catch (error) {
@@ -101,11 +103,20 @@ export function ShortcutModal({
           </Input.Root>
           <footer className="mt-2 flex items-center justify-end w-full">
             <div className="flex gap-x-2">
-              <div className="w-auto">
-                <Button type="submit" size="sm" isSubmitting={isSubmitting}>
-                  Save
-                </Button>
-              </div>
+              {mode !== 'read' && (
+                <div className="w-auto">
+                  <Button type="submit" size="sm" isSubmitting={isSubmitting}>
+                    <span className="flex items-center">
+                      <CheckCircle
+                        size={24}
+                        weight="fill"
+                        className="inline-block mr-1"
+                      />
+                      Save
+                    </span>
+                  </Button>
+                </div>
+              )}
               <div className="w-auto">
                 <Button size="sm" onClick={copyTextToClipboard}>
                   <span className="flex items-center">
