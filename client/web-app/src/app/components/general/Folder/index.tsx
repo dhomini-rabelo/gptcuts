@@ -9,7 +9,13 @@ export interface FolderData extends FolderEntity {
   shortcuts: ShortcutEntity[]
 }
 
-export function Folder({ folder }: { folder: FolderData }) {
+export function Folder({
+  editable = false,
+  folder,
+}: {
+  folder: FolderData
+  editable?: boolean
+}) {
   const { currentActiveModal, activateModal, disableModal } = useModals<
     'folder-modal' | 'shortcut-modal'
   >()
@@ -17,7 +23,7 @@ export function Folder({ folder }: { folder: FolderData }) {
   return (
     <>
       {currentActiveModal === 'folder-modal' && (
-        <FolderModal onClose={disableModal} />
+        <FolderModal onClose={disableModal} editData={folder} />
       )}
       {currentActiveModal === 'shortcut-modal' && (
         <ShortcutModal onClose={disableModal} />
@@ -60,12 +66,19 @@ export function Folder({ folder }: { folder: FolderData }) {
           ))}
         </main>
         <div className="absolute top-4 right-4 flex items-center gap-x-0.5">
-          <PencilSimple
-            size={24}
-            className="text-Gray-700 hover:text-Gray-500 relative -top-0.5"
-            onClick={() => activateModal('folder-modal')}
-          />
-          <LockSimple size={24} className="text-Gray-700 hover:text-Gray-500" />
+          {editable && (
+            <>
+              <PencilSimple
+                size={24}
+                className="text-Gray-700 hover:text-Gray-500 relative -top-0.5"
+                onClick={() => activateModal('folder-modal')}
+              />
+              <LockSimple
+                size={24}
+                className="text-Gray-700 hover:text-Gray-500"
+              />
+            </>
+          )}
         </div>
       </div>
     </>
