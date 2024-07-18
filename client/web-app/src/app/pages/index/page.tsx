@@ -1,5 +1,5 @@
 import { Text } from '../../components/common/Text'
-import { Folder } from '../../components/general/Folder'
+// import { Folder } from '../../components/general/Folder'
 import { Input } from '../../components/forms/Input'
 import { MagnifyingGlass } from 'phosphor-react'
 import { Header } from '../../components/utils/Header'
@@ -23,8 +23,8 @@ export function PublicShortcutsPage() {
           </div>
         </div>
         <section className="folders grid grid-cols-2 mt-10 gap-x-4 gap-y-8 pb-12">
-          <Folder />
-          <Folder />
+          {/* <Folder />
+          <Folder /> */}
         </section>
       </main>
     </div>

@@ -42,7 +42,7 @@ class ToggleShortcutPinAPI(generics.UpdateAPIView):
         shortcut = self.get_object()
         if shortcut.folder.user != request.user:
             raise serializers.ValidationError({'message': [ErrorMessages.FORBIDDEN]})
-        elif not shortcut.folder.is_pinned:
+        elif not shortcut.is_pinned:
             pinned_schortcuts = Shortcut.objects.filter(folder__user=request.user, is_pinned=True).count()
             if pinned_schortcuts > 3:
                 raise serializers.ValidationError({'message': [ErrorMessages.PINNED_SHORTCUTS_LIMIT]})

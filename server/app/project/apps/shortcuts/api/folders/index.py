@@ -1,11 +1,39 @@
-from rest_framework import generics, serializers
+from rest_framework import generics, serializers, views
+from rest_framework.response import Response
 from apps.shortcuts.api.folders.serializers import (
     CreateFolderSerializer,
     EditFolderSerializer,
     ToggleFolderVisibilitySerializer,
+    FolderPresenter,
 )
-from apps.shortcuts.models import Folder
+from apps.shortcuts.api.shortcuts.serializers import ShortcutPresenter
+from apps.shortcuts.models import Folder, Shortcut
 from utils.errors import ErrorMessages
+
+
+class MyFoldersListAPI(views.APIView):
+
+    def get(self, request):
+        pinned_shortcuts = Shortcut.objects.filter(is_pinned=True, folder__user=request.user)
+        folders_data = FolderPresenter(
+            Folder.objects.filter(
+                user=request.user,
+            ),
+            many=True,
+        ).data
+        folders_with_shortcuts = list(map(
+            lambda folder: {
+                **folder,
+                'shortcuts': ShortcutPresenter(
+                    list(
+                        filter(lambda shortcut: str(shortcut.folder_id) == str(folder['id']), pinned_shortcuts)
+                    ),
+                    many=True,
+                ).data,
+            },
+            folders_data,
+        ))
+        return Response(data=folders_with_shortcuts)     
 
 
 class CreateFolderAPI(generics.CreateAPIView):

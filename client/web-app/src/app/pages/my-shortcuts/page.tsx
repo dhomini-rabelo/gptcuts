@@ -1,15 +1,20 @@
 import { Plus } from 'phosphor-react'
 import { Text } from '../../components/common/Text'
 import { Button } from '../../components/forms/Button'
-import { Folder } from '../../components/general/Folder'
+import { Folder, FolderData } from '../../components/general/Folder'
 import { Header } from '../../components/utils/Header'
 import { useLoginStore } from '../../../code/stores/auth'
+import { useQuery } from '@tanstack/react-query'
+import { client } from '../../../code/settings'
 
 export function MyShortcutsPage() {
-  const { username } = useLoginStore((state) => ({
-    accessToken: state.accessToken,
-    username: state.username,
-  }))
+  const username = useLoginStore((state) => state.username)
+  const folders = useQuery<FolderData[]>({
+    queryKey: ['folders'],
+    queryFn: async () => {
+      return client.get('/my-folders').then((res) => res.data)
+    },
+  })
 
   return (
     <div className="body-df">
@@ -40,7 +45,9 @@ export function MyShortcutsPage() {
           </div>
         </div>
         <section className="folders grid grid-cols-2 mt-8 gap-x-4 gap-y-8 pb-12">
-          <Folder />
+          {folders.data?.map((folder) => (
+            <Folder key={folder.id} folder={folder} />
+          ))}
         </section>
       </main>
     </div>

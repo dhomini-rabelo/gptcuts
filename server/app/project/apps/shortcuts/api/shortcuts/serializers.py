@@ -2,6 +2,18 @@ from apps.shortcuts.models import Shortcut
 from rest_framework import serializers
 
 
+class ShortcutPresenter(serializers.ModelSerializer):
+
+    class Meta:
+        model = Shortcut
+        fields = (
+            'id',
+            'text',
+            'folder',
+            'is_pinned',    
+        )
+
+
 class CreateShortcutSerializer(serializers.ModelSerializer):
     def to_representation(self, shortcut: Shortcut):
         return {

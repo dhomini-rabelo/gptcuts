@@ -2,6 +2,20 @@ from apps.shortcuts.models import Folder
 from rest_framework import serializers
 
 
+class FolderPresenter(serializers.ModelSerializer):
+
+    class Meta:
+        model = Folder
+        fields = (
+            'id',
+            'name',
+            'description',
+            'user',
+            'is_private',
+        )
+
+
+
 class CreateFolderSerializer(serializers.ModelSerializer):
     def to_representation(self, folder: Folder):
         return {

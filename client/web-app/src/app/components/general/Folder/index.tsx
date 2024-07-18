@@ -3,8 +3,13 @@ import { Text } from '../../../components/common/Text'
 import { FolderModal } from './sub-components/FolderModal'
 import { useModals } from '../../../hooks/useModal'
 import { ShortcutModal } from './sub-components/ShortcutModal '
+import { FolderEntity, ShortcutEntity } from '../../../../code/entities'
 
-export function Folder() {
+export interface FolderData extends FolderEntity {
+  shortcuts: ShortcutEntity[]
+}
+
+export function Folder({ folder }: { folder: FolderData }) {
   const { currentActiveModal, activateModal, disableModal } = useModals<
     'folder-modal' | 'shortcut-modal'
   >()
@@ -22,73 +27,37 @@ export function Folder() {
           <strong className="flex items-center justify-center gap-x-1.5">
             <img src="./icons/folder.svg" className="h-7 w-7" />
             <Text variant="title" size="md">
-              ENGLISH
+              {folder.name}
             </Text>
           </strong>
           <div className="mt-0.5 text-center">
             <Text size="sm" weight="regular" color="Gray-700">
-              Folder com shortcuts em inglês
+              {folder.description}
             </Text>
           </div>
         </header>
         <main className="mt-2.5 flex flex-col gap-y-2">
-          <div className="group">
-            <div
-              className="bg-Black-300 hover:bg-Black-400 rounded-lg px-4 py-2 text-White-300 group-hover:text-white"
-              onClick={() => activateModal('shortcut-modal')}
-            >
-              <div className="flex justify-between items-center">
-                <Text weight="regular" color={null}>
-                  Qual a diferença entre "do" e "make"?
-                </Text>
-                <span className="hidden group-hover:inline-block">
-                  <CopySimple
-                    size={24}
-                    weight="fill"
-                    className="inline-block text-White-300"
-                  />
-                </span>
+          {folder.shortcuts.map((shortcut) => (
+            <div className="group">
+              <div
+                className="bg-Black-300 hover:bg-Black-400 rounded-lg px-4 py-2 text-White-300 group-hover:text-white"
+                onClick={() => activateModal('shortcut-modal')}
+              >
+                <div className="flex justify-between items-center">
+                  <Text weight="regular" color={null}>
+                    {shortcut.text}
+                  </Text>
+                  <span className="hidden group-hover:inline-block">
+                    <CopySimple
+                      size={24}
+                      weight="fill"
+                      className="inline-block text-White-300"
+                    />
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="group">
-            <div
-              className="bg-Black-300 hover:bg-Black-400 rounded-lg px-4 py-2 text-White-300 group-hover:text-white"
-              onClick={() => activateModal('shortcut-modal')}
-            >
-              <div className="flex justify-between items-center">
-                <Text weight="regular" color={null}>
-                  Qual a diferença entre "do" e "make"?
-                </Text>
-                <span className="hidden group-hover:inline-block">
-                  <CopySimple
-                    size={24}
-                    weight="fill"
-                    className="inline-block text-White-300"
-                  />
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="group">
-            <div
-              className="bg-Black-300 hover:bg-Black-400 rounded-lg px-4 py-2 text-White-300 group-hover:text-white"
-              onClick={() => activateModal('shortcut-modal')}
-            >
-              <div className="flex justify-between items-center">
-                <Text weight="regular" color={null}>
-                  Qual a diferença entre "do" e "make"?
-                </Text>
-                <span className="hidden group-hover:inline-block">
-                  <CopySimple
-                    size={24}
-                    weight="fill"
-                    className="inline-block text-White-300"
-                  />
-                </span>
-              </div>
-            </div>
-          </div>
+          ))}
         </main>
         <div className="absolute top-4 right-4 flex items-center gap-x-0.5">
           <PencilSimple
