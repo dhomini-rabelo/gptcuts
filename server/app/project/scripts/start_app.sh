@@ -29,3 +29,4 @@ sudo service gunicorn restart
 sudo service nginx restart
 
 echo "Application started successfully."
+touch filename.txt
