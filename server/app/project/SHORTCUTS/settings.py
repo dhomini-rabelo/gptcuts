@@ -26,8 +26,12 @@ SECRET_KEY = 'django-insecure-e-fij%96@#3ocf5os9uu+5ze2@p9p52(5m-+4wefe4s-t0s+38
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: list[str] = ['*']
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'http://gpt-cuts.s3-website-us-east-1.amazonaws.com',
+]
 
 # Application definition
 
@@ -166,7 +170,3 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-]
