@@ -10,6 +10,7 @@ import { useFeedback } from '../../../../../hooks/useFeedback'
 import { client, queryClient } from '../../../../../../code/settings'
 import { processFormErrorResponse } from '../../../../../../code/process-error'
 import { AxiosError } from 'axios'
+import copy from 'copy-to-clipboard'
 
 export type ShortcutModalProps = {
   onClose: () => void
@@ -69,7 +70,7 @@ export function ShortcutModal({
 
   function copyTextToClipboard() {
     const data = getValues()
-    navigator.clipboard.writeText(data.text)
+    copy(data.text)
     renderFeedback('success', {
       message: 'Copied!',
     })
