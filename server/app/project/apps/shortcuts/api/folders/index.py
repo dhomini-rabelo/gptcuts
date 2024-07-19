@@ -9,6 +9,42 @@ from apps.shortcuts.api.folders.serializers import (
 from apps.shortcuts.api.shortcuts.serializers import ShortcutPresenter
 from apps.shortcuts.models import Folder, Shortcut
 from utils.errors import ErrorMessages
+from utils.no_auth import NoAuthAPI
+
+
+class PublicFoldersListAPI(NoAuthAPI, views.APIView):
+
+    def get(self, request):
+        query = self.get_query(request)
+        pinned_shortcuts = Shortcut.objects.filter(is_pinned=True, folder__user=request.user)
+        folders_data = FolderPresenter(
+            Folder.objects.filter(**query),
+            many=True,
+        ).data
+        folders_with_shortcuts = list(map(
+            lambda folder: {
+                **folder,
+                'shortcuts': ShortcutPresenter(
+                    list(
+                        filter(lambda shortcut: str(shortcut.folder_id) == str(folder['id']), pinned_shortcuts)
+                    ),
+                    many=True,
+                ).data,
+            },
+            folders_data,
+        ))
+        return Response(data=folders_with_shortcuts)     
+    
+    def get_query(self, request):
+        query = {
+            'is_private': False,
+        }
+        
+        search_text = request.query_params.get('search')
+        if search_text:
+            query['name__icontains'] = search_text
+        
+        return query
 
 
 class MyFoldersListAPI(views.APIView):
