@@ -13,7 +13,7 @@ PROJECT_MAIN_DIR_NAME="gptcuts"
 # Clone repository
 git clone "$GIT_REPO_URL" "/home/ubuntu/$PROJECT_MAIN_DIR_NAME"
 
-cd "/home/ubuntu/$PROJECT_MAIN_DIR_NAME"
+cd "/home/ubuntu/$PROJECT_MAIN_DIR_NAME/server/app/project"
 
 # Make all .sh files executable
 chmod +x scripts/*.sh
