@@ -5,6 +5,7 @@ import { HeaderLink } from './sub-components/HeaderLink'
 import { useLoginStore } from '../../../../code/stores/auth'
 
 export function Header() {
+  const accessToken = useLoginStore((state) => state.accessToken)
   const logout = useLoginStore((state) => state.logout)
   const navigate = useNavigate()
 
@@ -34,13 +35,15 @@ export function Header() {
               </div>
             </HeaderLink>
           </NavLink>
-          <div onClick={handleLogout} className="cursor-pointer">
-            <HeaderLink>
-              <div className="-rotate-180">
-                <img src="/icons/exit.svg" />
-              </div>
-            </HeaderLink>
-          </div>
+          {accessToken && (
+            <div onClick={handleLogout} className="cursor-pointer">
+              <HeaderLink>
+                <div className="-rotate-180">
+                  <img src="/icons/exit.svg" />
+                </div>
+              </HeaderLink>
+            </div>
+          )}
         </nav>
       </div>
     </header>

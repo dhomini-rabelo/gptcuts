@@ -12,11 +12,11 @@ from utils.errors import ErrorMessages
 from utils.no_auth import NoAuthAPI
 
 
-class PublicFoldersListAPI(NoAuthAPI, views.APIView):
+class PublicFoldersListAPI(NoAuthAPI):
 
     def get(self, request):
         query = self.get_query(request)
-        pinned_shortcuts = Shortcut.objects.filter(is_pinned=True, folder__user=request.user)
+        pinned_shortcuts = Shortcut.objects.filter(is_pinned=True)
         folders_data = FolderPresenter(
             Folder.objects.filter(**query),
             many=True,
