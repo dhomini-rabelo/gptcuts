@@ -19,9 +19,14 @@ cd "/home/ubuntu/$PROJECT_MAIN_DIR_NAME/server/app/project"
 chmod +x scripts/*.sh
 
 # Execute scripts for OS dependencies, Python dependencies, Gunicorn, Nginx, and starting the application
-touch filenamel.txt
+touch filenamel_00.txt
 ./scripts/instance_os_dependencies.sh
+touch filenamel_0.txt
 ./scripts/python_dependencies.sh
+touch filenamel_1.txt
 ./scripts/gunicorn.sh
+touch filenamel_2.txt
 ./scripts/nginx.sh
+touch filenamel_3.txt
 ./scripts/start_app.sh
+touch filenamel_5.txt
