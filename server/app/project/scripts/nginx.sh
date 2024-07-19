@@ -4,7 +4,7 @@
 PROJECT_MAIN_DIR_NAME="gptcuts"
 
 # Replace {FOLDER_NAME_WHERE_SETTINGS_FILE_EXISTS} with the folder name where your nginx configuration file exists
-FOLDER_NAME_WHERE_SETTINGS_FILE_EXISTS="gptcuts/server/app/project/SHORTCUTS"
+FOLDER_NAME_WHERE_SETTINGS_FILE_EXISTS="server/app/project/SHORTCUTS"
 
 # Reload systemd daemon
 sudo systemctl daemon-reload
