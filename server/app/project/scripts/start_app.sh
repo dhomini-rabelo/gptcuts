@@ -13,7 +13,7 @@ fi
 sudo chown -R ubuntu:ubuntu "/home/ubuntu/$PROJECT_MAIN_DIR_NAME"
 
 # Change directory to the project main directory
-cd "/home/ubuntu/$PROJECT_MAIN_DIR_NAME"
+cd "/home/ubuntu/$PROJECT_MAIN_DIR_NAME/server/app/project"
 
 # Activate virtual environment
 echo "Activating virtual environment..."
