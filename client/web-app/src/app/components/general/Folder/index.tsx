@@ -3,6 +3,7 @@ import {
   LockLaminated,
   LockSimpleOpen,
   PencilSimple,
+  Plus,
 } from 'phosphor-react'
 import { Text } from '../../../components/common/Text'
 import { FolderModal } from './sub-components/FolderModal'
@@ -33,6 +34,8 @@ export function Folder({
   const { currentActiveModal, activateModal, disableModal } = useModals<
     'folder-modal' | 'shortcut-modal'
   >()
+  const emptyShortcutSpaces =
+    folder.shortcuts.length < 3 ? 3 - folder.shortcuts.length : 0
 
   async function toggleVisibility() {
     setUpdatingData(true)
@@ -109,10 +112,28 @@ export function Folder({
               </div>
             </div>
           ))}
+          {Array.from({ length: emptyShortcutSpaces }).map((_, index) => (
+            <div
+              key={index}
+              className="bg-Black-300 rounded-lg px-4 py-2 text-White-300"
+            >
+              <Text weight="regular" color={null}>
+                Empty ({index})
+              </Text>
+            </div>
+          ))}
         </main>
         <div className="absolute top-4 right-4 flex items-center gap-x-0.5">
           {editable && (
             <>
+              <Link to={`/folders/${folder.id}`}>
+                <Plus
+                  weight="bold"
+                  size={24}
+                  className="text-Gray-700 hover:text-Gray-500 relative -top-0.5"
+                  onClick={() => activateModal('folder-modal')}
+                />
+              </Link>
               <PencilSimple
                 size={24}
                 className="text-Gray-700 hover:text-Gray-500 relative -top-0.5"

@@ -1,12 +1,21 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Text } from '../../../components/common/Text'
 import { Logo } from '../Logo'
 import { HeaderLink } from './sub-components/HeaderLink'
+import { useLoginStore } from '../../../../code/stores/auth'
 
 export function Header() {
+  const logout = useLoginStore((state) => state.logout)
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logout()
+    navigate('/login')
+  }
+
   return (
     <header className="flex py-5 bg-Purple-400">
-      <div className="header-area flex w-full max-w-[75rem] px-12 mx-auto">
+      <div className="header-area flex w-full max-w-[75rem] px-12 mx-auto items-center">
         <Logo />
         <nav className="flex gap-x-3 ml-auto">
           <NavLink to="/">
@@ -25,13 +34,13 @@ export function Header() {
               </div>
             </HeaderLink>
           </NavLink>
-          <NavLink to="/exit">
+          <div onClick={handleLogout} className="cursor-pointer">
             <HeaderLink>
               <div className="-rotate-180">
                 <img src="/icons/exit.svg" />
               </div>
             </HeaderLink>
-          </NavLink>
+          </div>
         </nav>
       </div>
     </header>

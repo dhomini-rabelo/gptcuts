@@ -76,7 +76,7 @@ export function FolderModal({ onClose, editData }: FolderModalProps) {
             <Input.Label>Name:</Input.Label>
             <Input.Box
               type="text"
-              placeholder="Type your name"
+              placeholder="Type folder name"
               {...register('name')}
             />
             <Input.Message>{errors.name?.message}</Input.Message>
@@ -85,7 +85,7 @@ export function FolderModal({ onClose, editData }: FolderModalProps) {
             <Input.Label>Description:</Input.Label>
             <Input.Box
               type="text-area"
-              placeholder="Type your description"
+              placeholder="Type folder description"
               {...register('description')}
             />
             <Input.Message>{errors.description?.message}</Input.Message>
