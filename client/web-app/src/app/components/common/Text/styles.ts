@@ -89,6 +89,11 @@ export const Span = {
         `
           font-size: 0.75rem;
       `}
-      `}
+      `} 
+      
+    & div:has(svg) {
+      display: ruby;
+      content: '';
+    }
   `,
 }
